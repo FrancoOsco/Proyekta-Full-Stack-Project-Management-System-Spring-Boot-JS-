@@ -41,4 +41,22 @@ public class UsuarioController {
         model.addAttribute("nombreUsuario", usuario.getNombre());
         return "home";
     }
+
+    @GetMapping("/tablero")
+    public String mostrarTablero(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        Usuario usuario = usuarioService.buscarPorUsername(username);
+        model.addAttribute("nombreUsuario", usuario.getNombre());
+        return "tablero";
+    }
+
+    @GetMapping("/proyecto")
+    public String mostrarProyecto(Model model, Authentication authentication) {
+        if (authentication != null) {
+            String username = authentication.getName();
+            Usuario usuario = usuarioService.buscarPorUsername(username);
+            model.addAttribute("nombreUsuario", usuario.getNombre());
+        }
+        return "proyecto";
+    }
 }
